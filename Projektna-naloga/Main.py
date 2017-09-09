@@ -41,6 +41,8 @@ class Delnice:
         else:
             messagebox.showinfo("Error", "nimate dovolj denarja")
 
+        self.posodobi()
+
         print(denar)
         print(kolicina_delnic)
 
@@ -61,6 +63,8 @@ class Delnice:
         else:
             messagebox.showinfo("Error", "nimate dovolj delnic")
 
+        self.posodobi()
+
         print(denar)
         print(kolicina_delnic)
 
@@ -72,6 +76,7 @@ class Delnice:
         self.graf.create_text(0, 0, text=str((float(self.prejsnje_vrednosti[9])//10)*10 + 10) + " $", anchor="nw")
         self.graf.create_text(0, canvas_height, text=str((float(self.prejsnje_vrednosti[9])//10)*10) + " $", anchor="sw")
         self.graf.create_text(canvas_width, 0, text=self.oznaka, anchor="ne")
+        self.graf.create_text(canvas_width, 20, text="število delnic: " + str(kolicina_delnic[delnice_po_abecedi.index(str(self.oznaka))]), anchor="ne")
 
         # markings on x axis
         for i in range(11):
@@ -85,10 +90,10 @@ class Delnice:
 
 
     def posodobi(self):
-        #while True:
+        while True:
             self.trenutna_vrednost = ystockquote.get_last_trade_price(self.oznaka)
             self.prejsnje_vrednosti = self.prejsnje_vrednosti[1:] + [self.trenutna_vrednost]
-            print(self.prejsnje_vrednosti)
             self.Canvas_Graf()
-            #time.sleep(120)
+            print(self.prejsnje_vrednosti)
+            time.sleep(120)
             #self.posodobi()
