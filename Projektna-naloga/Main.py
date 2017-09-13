@@ -1,6 +1,5 @@
 import ystockquote
 import tkinter as tk
-import time
 from tkinter import messagebox
 
 denar = 10000.0
@@ -36,7 +35,7 @@ class Delnice:
 
             kolicina_delnic[x] += int(kolicina)
         else:
-            messagebox.showinfo("Error", "nimate dovolj denarja")
+            messagebox.showinfo("Error", "Nimate dovolj denarja")
 
         self.posodobi()
 
@@ -55,7 +54,7 @@ class Delnice:
 
             kolicina_delnic[x] -= int(kolicina)
         else:
-            messagebox.showinfo("Error", "nimate dovolj delnic")
+            messagebox.showinfo("Error", "Nimate dovolj delnic")
 
         self.posodobi()
 
@@ -71,31 +70,20 @@ class Delnice:
         self.graf.create_text(canvas_width, 20, text="število delnic: " + str(kolicina_delnic[delnice_po_abecedi.index(str(self.oznaka))]), anchor="ne")
 
 
-        # markings on x axis
-        #for i in range(11):
-            #x = 100 + (i * 30)
-            #self.graf.create_text(x, canvas_height, text='%d' % (30 * i), anchor="s")
-
         razlika_na_y_osi = (canvas_height-2*canvas_zamik)/10
-
 
         for x in range(10,0,-1):
             self.graf.create_line(45,(canvas_height - canvas_zamik) - razlika_na_y_osi*x, 55, (canvas_height - canvas_zamik) - razlika_na_y_osi*x, fill="#476042", width=2)
-            #self.graf.create_line(50, razlika_na_y_osi * x, canvas_width, razlika_na_y_osi * x, fill="#476042", width=0.5)
 
 
         for x in range(8):
-            self.graf.create_line(x*50 + canvas_zamik, ((canvas_height - float(self.prejsnje_vrednosti[x]))%10)*50 + canvas_zamik, (x+1)*50 + canvas_zamik, ((canvas_height - float(self.prejsnje_vrednosti[x+1]))%10)*50 + canvas_zamik, fill="#476042", width=2)
+            self.graf.create_line(x*50 + canvas_zamik, ((canvas_height - float(self.prejsnje_vrednosti[x]))%10)*50, (x+1)*50 + canvas_zamik, ((canvas_height - float(self.prejsnje_vrednosti[x+1]))%10)*50, fill="#476042", width=2)
 
 
     def posodobi(self):
-        #while True:
             self.trenutna_vrednost = ystockquote.get_last_trade_price(self.oznaka)
             self.prejsnje_vrednosti = self.prejsnje_vrednosti[1:] + [self.trenutna_vrednost]
             self.Canvas_Graf()
-            print(self.prejsnje_vrednosti)
-            #time.sleep(120)
-            #self.posodobi()
 
 
 def shrani_delnice():
@@ -123,24 +111,14 @@ def nalozi_delnice():
         shranjeno += vrstica
 
     a = shranjeno.split("\n")
-
     b = a[0][1:-1]
-
-    print(b)
-
     c = b.split(",")
-
-    print(c)
-
 
     for x in c:
         shranjeno_samo_števila.append(int(x))
 
     denar = float(a[1])
 
-    print(shranjeno_samo_števila)
-
     kolicina_delnic = shranjeno_samo_števila
-
 
     dat.close()

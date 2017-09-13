@@ -53,13 +53,19 @@ def nalozi():
 
 
 def lambda_nakup():
-    delnica.nakup(kolicina_nakupa.get())
-    denar_str.set(str(Main.denar) + " $")
+    if je_stevilo(kolicina_nakupa):
+        delnica.nakup(kolicina_nakupa.get())
+        denar_str.set(str(Main.denar) + " $")
+    else:
+        messagebox.showinfo("Error", "Neveljaven vnos")
 
 
 def lambda_prodaja():
-    delnica.prodaja(kolicina_prodaja.get())
-    denar_str.set(str(Main.denar) + " $")
+    if je_stevilo(kolicina_prodaja):
+        delnica.prodaja(kolicina_prodaja.get())
+        denar_str.set(str(Main.denar) + " $")
+    else:
+        messagebox.showinfo("Error", "Neveljaven vnos")
 
 
 def generiraj_delnico(oznaka):
@@ -70,7 +76,12 @@ def generiraj_delnico(oznaka):
     else:
         messagebox.showinfo("Error", "Neveljavna oznaka")
 
-    print(delnica)
+def je_stevilo(x):
+    try:
+        float(x)
+        return True
+    except ValueError:
+        return False
 
 
 okno.mainloop()
